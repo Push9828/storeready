@@ -1,0 +1,58 @@
+{
+  "name": "storeready",
+  "version": "1.0.0",
+  "description": "Check your Expo/React Native app for Apple App Store submission readiness",
+  "type": "module",
+  "bin": {
+    "storeready": "./bin/run.js"
+  },
+  "main": "./dist/index.js",
+  "exports": "./dist/index.js",
+  "files": [
+    "dist",
+    "bin",
+    "oclif.manifest.json"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsc -p tsconfig.json --watch",
+    "lint": "eslint src --ext .ts",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "prepack": "npm run build && npx oclif manifest",
+    "postpack": "rm -f oclif.manifest.json"
+  },
+  "dependencies": {
+    "@oclif/core": "^4.0.0",
+    "chalk": "^5.3.0",
+    "image-size": "^1.1.1",
+    "inquirer": "^9.2.23",
+    "ora": "^8.0.1"
+  },
+  "devDependencies": {
+    "@oclif/test": "^4.0.0",
+    "@types/node": "^20.0.0",
+    "typescript": "^5.4.0",
+    "vitest": "^1.6.0"
+  },
+  "oclif": {
+    "bin": "storeready",
+    "dirname": "storeready",
+    "commands": "./dist/commands",
+    "topicSeparator": " "
+  },
+  "keywords": [
+    "expo",
+    "react-native",
+    "ios",
+    "app-store",
+    "cli",
+    "submission",
+    "eas"
+  ],
+  "author": "Pushkar Thakur",
+  "license": "MIT"
+}
