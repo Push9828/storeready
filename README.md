@@ -2,12 +2,12 @@
 
 **Stop getting rejected. Ship with confidence.**
 
-A CLI that checks your Expo/React Native app for Apple App Store submission readiness before you submit. Catches the mechanical mistakes that cause ~40% of rejections — missing permission descriptions, wrong screenshot sizes, broken privacy URLs, missing demo credentials.
+A CLI that checks your Expo/React Native app for Apple App Store submission readiness before you submit. Catches the mechanical mistakes that cause ~40% of rejections - missing permission descriptions, wrong screenshot sizes, broken privacy URLs, missing demo credentials.
 
 ```
 $ npx storeready check
 
-  storeready v1.0.0  —  Apple App Store Readiness Check
+  storeready v1.0.0  -  Apple App Store Readiness Check
   Project: MyApp (com.mycompany.myapp)
   ─────────────────────────────────────────────────────
 
@@ -30,7 +30,7 @@ $ npx storeready check
 
 ## Installation
 
-No install needed — just run with npx:
+No install needed - just run with npx:
 
 ```bash
 npx storeready init   # one-time setup
@@ -51,7 +51,7 @@ Run `init` once per project from your Expo project root:
 npx storeready init
 ```
 
-This asks for your demo account credentials, privacy policy URL, support URL, and screenshots path, then writes a `.storeready` file to your project root. **Commit this file** — it's safe to store in git.
+This asks for your demo account credentials, privacy policy URL, support URL, and screenshots path, then writes a `.storeready` file to your project root. **Commit this file** - it's safe to store in git.
 
 ## The .storeready file
 
@@ -68,7 +68,7 @@ This asks for your demo account credentials, privacy policy URL, support URL, an
 }
 ```
 
-**Passwords and secrets:** Prefix the value with `$` to read from an environment variable at runtime. The `.storeready` file itself never contains the real value — store it in your shell profile or CI secrets.
+**Passwords and secrets:** Prefix the value with `$` to read from an environment variable at runtime. The `.storeready` file itself never contains the real value - store it in your shell profile or CI secrets.
 
 ```bash
 # In your shell or CI environment:
@@ -84,8 +84,8 @@ export DEMO_PASSWORD=your-actual-password
 | **SUB**  | 11     | Demo account, privacy URL reachability, version, app name length        |
 | **CFG**  | 5      | `app.json` structure, bundle ID format, placeholder values              |
 
-**Errors** exit with code 1 — they will block CI if you add `storeready check` to your pipeline.
-**Warnings** print but exit 0 — advisory only.
+**Errors** exit with code 1 they will block CI if you add `storeready check` to your pipeline.
+**Warnings** print but exit 0 - advisory only.
 
 Full check reference with IDs and error messages: [`storeready.md`](./storeready.md)
 
@@ -107,6 +107,26 @@ Full check reference with IDs and error messages: [`storeready.md`](./storeready
 
 - Node.js 18+
 - Expo managed or bare workflow project with `app.json` or `app.config.js`
+
+## Roadmap
+
+**v1 (current)** - Apple App Store, Expo managed + bare workflow
+
+**v1.1** - Additional lightweight checks based on user feedback (support URL reachability, app icon validation)
+
+**v2** - Google Play Store checks + App Store Connect API integration
+
+- Google Play compliance: `AndroidManifest.xml` permissions, Play Store screenshot sizes (phones, 7" and 10" tablets), store listing completeness
+- Google Play Developer API: verify metadata is actually set in the Play Console, not just locally
+- App Store Connect API: verify App Store metadata matches local config, catch issues before Apple's review queue
+
+**v3** - Broader framework support
+
+- React Native bare workflow (deeper native config scanning)
+- Flutter (`pubspec.yaml`, `AndroidManifest.xml`, `Info.plist` direct reads)
+- Native Swift / Kotlin projects
+
+> Have a rejection reason that storeready didn't catch? [Open an issue](https://github.com/push9828/storeready/issues) - every new check comes from a real rejection.
 
 ## License
 
