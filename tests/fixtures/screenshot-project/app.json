@@ -1,0 +1,12 @@
+{
+  "expo": {
+    "name": "MyApp",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "ios": {
+      "bundleIdentifier": "com.mycompany.myapp",
+      "buildNumber": "1",
+      "supportsTablet": false
+    }
+  }
+}

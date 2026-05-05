@@ -34,6 +34,7 @@
   },
   "devDependencies": {
     "@oclif/test": "^4.0.0",
+    "@types/inquirer": "^9.0.9",
     "@types/node": "^20.19.39",
     "typescript": "^5.4.0",
     "vitest": "^1.6.0"

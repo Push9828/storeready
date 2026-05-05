@@ -1,0 +1,10 @@
+{
+  "demoAccount": {
+    "email": "tester@myapp.com",
+    "password": "secret123"
+  },
+  "appReviewNotes": "Tap Continue as Guest to skip login on the welcome screen",
+  "privacyPolicyUrl": "https://myapp.com/privacy",
+  "supportUrl": "https://myapp.com/support",
+  "screenshotsPath": "./screenshots"
+}
