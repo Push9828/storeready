@@ -1,5 +1,8 @@
 # storeready
 
+[![npm version](https://img.shields.io/npm/v/storeready.svg)](https://www.npmjs.com/package/storeready)
+[![npm downloads](https://img.shields.io/npm/dm/storeready.svg)](https://www.npmjs.com/package/storeready)
+
 **Stop getting rejected. Ship with confidence.**
 
 A CLI that checks your Expo/React Native app for Apple App Store submission readiness before you submit. Catches the mechanical mistakes that cause ~40% of rejections - missing permission descriptions, wrong screenshot sizes, broken privacy URLs, missing demo credentials.
