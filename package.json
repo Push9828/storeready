@@ -22,7 +22,7 @@
     "lint": "eslint src --ext .ts",
     "test": "vitest run",
     "test:watch": "vitest",
-    "prepack": "npm run build && npx oclif manifest",
+    "prepack": "npm run build && oclif manifest",
     "postpack": "rm -f oclif.manifest.json"
   },
   "dependencies": {
@@ -36,6 +36,7 @@
     "@oclif/test": "^4.0.0",
     "@types/inquirer": "^9.0.9",
     "@types/node": "^20.19.39",
+    "oclif": "^4.23.0",
     "typescript": "^5.4.0",
     "vitest": "^1.6.0"
   },
@@ -55,5 +56,13 @@
     "eas"
   ],
   "author": "Pushkar Thakur",
-  "license": "MIT"
+  "license": "MIT",
+  "homepage": "https://github.com/push9828/storeready#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/push9828/storeready.git"
+  },
+  "bugs": {
+    "url": "https://github.com/push9828/storeready/issues"
+  }
 }
