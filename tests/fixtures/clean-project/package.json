@@ -1,0 +1,7 @@
+{
+  "name": "my-app",
+  "dependencies": {
+    "expo": "~51.0.0",
+    "expo-camera": "~15.0.0"
+  }
+}

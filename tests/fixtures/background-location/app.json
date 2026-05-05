@@ -1,0 +1,14 @@
+{
+  "expo": {
+    "name": "MyApp",
+    "version": "1.0.0",
+    "ios": {
+      "bundleIdentifier": "com.mycompany.myapp",
+      "buildNumber": "1",
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "To show your location on the map",
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "To track your route in the background"
+      }
+    }
+  }
+}

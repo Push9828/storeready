@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "name": "MyApp",
+    "version": "1.0.0",
+    "ios": {
+      "bundleIdentifier": "com.example.myapp",
+      "buildNumber": "1"
+    }
+  }
+}

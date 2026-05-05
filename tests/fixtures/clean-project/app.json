@@ -1,0 +1,15 @@
+{
+  "expo": {
+    "name": "MyApp",
+    "version": "1.0.0",
+    "ios": {
+      "bundleIdentifier": "com.mycompany.myapp",
+      "buildNumber": "1",
+      "supportsTablet": false,
+      "minimumOsVersion": "16.0",
+      "infoPlist": {
+        "NSCameraUsageDescription": "To scan QR codes for event check-in"
+      }
+    }
+  }
+}
