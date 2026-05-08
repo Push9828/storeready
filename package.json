@@ -1,10 +1,10 @@
 {
   "name": "storeready",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Check your Expo/React Native app for Apple App Store submission readiness",
   "type": "module",
   "bin": {
-    "storeready": "./bin/run.js"
+    "storeready": "bin/run.js"
   },
   "main": "./dist/index.js",
   "exports": "./dist/index.js",
