@@ -8,10 +8,9 @@ export interface CheckResult {
 }
 
 export interface StoreReadyConfig {
-  demoAccount: {
-    email: string;
-    password: string;
-  };
+  demoAccount:
+    | { loginType: 'email'; email: string; password: string }
+    | { loginType: 'phone'; phone: string; otpNote: string };
   appReviewNotes: string;
   privacyPolicyUrl: string;
   supportUrl: string;

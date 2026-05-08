@@ -136,6 +136,7 @@ export async function runPermissionChecks(root: string = process.cwd()): Promise
 
   // PERM-10: check existing plist values for placeholders / short strings
   for (const [key, value] of Object.entries(infoPlist)) {
+    if (typeof value !== 'string') continue;
     const lower = value.toLowerCase().trim();
     const isPlaceholder = PLACEHOLDER_VALUES.has(lower);
     const isTooShort = value.trim().length < 10;

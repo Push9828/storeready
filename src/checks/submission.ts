@@ -50,54 +50,98 @@ export async function runSubmissionChecks(root: string = process.cwd()): Promise
     throw err;
   }
 
-  // SUB-01: demo account email
-  const email = storeConfig.demoAccount?.email?.trim();
-  if (!email) {
-    results.push({
-      id: 'SUB-01',
-      passed: false,
-      severity: 'error',
-      message: 'No demo account configured',
-      detail:
-        'Apple reviewers cannot test your app without login credentials.\n' +
-        'Run storeready init to configure.',
-    });
-  } else {
-    results.push({
-      id: 'SUB-01',
-      passed: true,
-      severity: 'error',
-      message: 'Demo account email configured',
-    });
-  }
+  // SUB-01 + SUB-02: demo account credentials
+  const account = storeConfig.demoAccount;
+  const loginType = (account as { loginType?: string }).loginType ?? 'email';
 
-  // SUB-02: demo account password
-  const rawPassword = storeConfig.demoAccount?.password?.trim();
-  if (!rawPassword) {
-    results.push({
-      id: 'SUB-02',
-      passed: false,
-      severity: 'error',
-      message: 'Demo account password missing',
-      detail: 'Apple reviewers need complete login credentials.',
-    });
-  } else {
-    try {
-      resolveValue(rawPassword); // will throw if $VAR_NAME is unset
+  if (loginType === 'phone') {
+    const phone = (account as { phone?: string }).phone?.trim();
+    if (!phone) {
       results.push({
-        id: 'SUB-02',
+        id: 'SUB-01',
+        passed: false,
+        severity: 'error',
+        message: 'No demo account phone number configured',
+        detail:
+          'Apple reviewers cannot test your app without login credentials.\n' +
+          'Run storeready init to configure.',
+      });
+    } else {
+      results.push({
+        id: 'SUB-01',
         passed: true,
         severity: 'error',
-        message: 'Demo account password configured',
+        message: `Demo account phone configured (${phone})`,
       });
-    } catch (err) {
+    }
+
+    const otpNote = (account as { otpNote?: string }).otpNote?.trim();
+    if (!otpNote) {
       results.push({
         id: 'SUB-02',
         passed: false,
         severity: 'error',
-        message: 'Demo account password env var not set',
-        detail: err instanceof Error ? err.message : String(err),
+        message: 'OTP note missing',
+        detail:
+          'Apple reviewers need instructions for how to complete OTP login.\n' +
+          'Add an otpNote explaining how to receive or bypass the OTP.',
       });
+    } else {
+      results.push({
+        id: 'SUB-02',
+        passed: true,
+        severity: 'error',
+        message: 'OTP login note configured',
+      });
+    }
+  } else {
+    const email = (account as { email?: string }).email?.trim();
+    if (!email) {
+      results.push({
+        id: 'SUB-01',
+        passed: false,
+        severity: 'error',
+        message: 'No demo account configured',
+        detail:
+          'Apple reviewers cannot test your app without login credentials.\n' +
+          'Run storeready init to configure.',
+      });
+    } else {
+      results.push({
+        id: 'SUB-01',
+        passed: true,
+        severity: 'error',
+        message: 'Demo account email configured',
+      });
+    }
+
+    const rawPassword = (account as { password?: string }).password?.trim();
+    if (!rawPassword) {
+      results.push({
+        id: 'SUB-02',
+        passed: false,
+        severity: 'error',
+        message: 'Demo account password missing',
+        detail: 'Apple reviewers need complete login credentials.',
+      });
+    } else {
+      try {
+        resolveValue(rawPassword);
+        results.push({
+          id: 'SUB-02',
+          passed: true,
+          severity: 'error',
+          message: 'Demo account password configured',
+        });
+      } catch (err) {
+        results.push({
+          id: 'SUB-02',
+          passed: false,
+          severity: 'error',
+          message: 'Demo account password env var not set',
+          detail: err instanceof Error ? err.message : String(err),
+        });
+      }
     }
   }
 

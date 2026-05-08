@@ -13,12 +13,34 @@ export default class Init extends Command {
     console.log(`  Let's set up your project. This takes 2 minutes.`);
     console.log();
 
-    const answers = await inquirer.prompt([
+    type Answers = {
+      loginType: 'email' | 'phone';
+      email?: string;
+      password?: string;
+      phone?: string;
+      otpNote?: string;
+      appReviewNotes: string;
+      privacyPolicyUrl: string;
+      supportUrl: string;
+      screenshotsPath: string;
+    };
+
+    const answers = await inquirer.prompt<Answers>([
+      {
+        type: 'list',
+        name: 'loginType',
+        message: 'How does the demo account log in?',
+        choices: [
+          { name: 'Email + Password', value: 'email' },
+          { name: 'Phone number + OTP', value: 'phone' },
+        ],
+      },
       {
         type: 'input',
         name: 'email',
         message: 'Demo account email (for Apple reviewer):',
         validate: (val: string) => val.trim().length > 0 || 'Email is required',
+        when: (ans: { loginType: string }) => ans.loginType === 'email',
       },
       {
         type: 'password',
@@ -26,6 +48,21 @@ export default class Init extends Command {
         message: 'Demo account password (or enter $ENV_VAR_NAME to use an env variable):',
         mask: '*',
         validate: (val: string) => val.trim().length > 0 || 'Password is required',
+        when: (ans: { loginType: string }) => ans.loginType === 'email',
+      },
+      {
+        type: 'input',
+        name: 'phone',
+        message: 'Demo account phone number (e.g. +14155550123):',
+        validate: (val: string) => val.trim().length > 0 || 'Phone number is required',
+        when: (ans: { loginType: string }) => ans.loginType === 'phone',
+      },
+      {
+        type: 'input',
+        name: 'otpNote',
+        message: 'OTP note for Apple reviewer (explain how they can receive/bypass OTP):',
+        default: 'Use OTP code sent to the demo phone number. Test SIM is managed by our QA team — contact us via App Review notes if needed.',
+        when: (ans: { loginType: string }) => ans.loginType === 'phone',
       },
       {
         type: 'input',
@@ -57,11 +94,13 @@ export default class Init extends Command {
       },
     ]);
 
+    const demoAccount: StoreReadyConfig['demoAccount'] =
+      answers.loginType === 'phone'
+        ? { loginType: 'phone', phone: answers.phone!.trim(), otpNote: answers.otpNote!.trim() }
+        : { loginType: 'email', email: answers.email!.trim(), password: answers.password!.trim() };
+
     const config: StoreReadyConfig = {
-      demoAccount: {
-        email: answers.email.trim(),
-        password: answers.password.trim(),
-      },
+      demoAccount,
       appReviewNotes: answers.appReviewNotes.trim(),
       privacyPolicyUrl: answers.privacyPolicyUrl.trim(),
       supportUrl: answers.supportUrl.trim(),
